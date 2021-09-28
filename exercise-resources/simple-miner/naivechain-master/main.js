@@ -14,7 +14,7 @@ var initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 var difficulty = 4;//adds leading zero's increasing the difficulty
 
 class Block {
-    constructor(index, previousHash, timestamp, data, hash) {
+    constructor(index, previousHash, timestamp, data, hash, difficulty, nonce) {
         this.index = index;
         this.previousHash = previousHash.toString();
         this.timestamp = timestamp;
@@ -60,7 +60,7 @@ var initHttpServer = () => {
     app.listen(http_port, () => console.log('Listening http on port: ' + http_port));
 };
 
-var mineBlock = (blockData) => {
+var mineBlock = (blockData) => {                //This function was added
     var previousBlock = getLatestBlock();
     var nextIndex = previousBlock.index + 1;
     var nonce = 0;
@@ -72,9 +72,12 @@ var mineBlock = (blockData) => {
         nextHash = calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData, nonce);
 
         console.log("\"index\":" + nextIndex + ",\"previousHash\":" + previousBlock.hash +
-                    )
+                    "\"timestamp\":"+ nextTimestamp + ",\"data\":"+ blockData + 
+                    ",\x1b[33mhash: " + nextHash + " \lb[0m," + "\"difficulty\":" + difficulty +
+                    " \x1b[33mnonce: " + nonce + " \x1b[0m ");
     }
-}
+    return new Block(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash, difficulty, nonce);
+};
 
 
 var initP2PServer = () => {
