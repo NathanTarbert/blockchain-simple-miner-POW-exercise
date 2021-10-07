@@ -4,12 +4,12 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var WebSocket = require("ws");
 
-var http_port = process.env.HTTP_PORT || 3001;
-var http_port = process.env.HTTP_PORT || 3002;//added from PDF steps
-var http_port = process.env.HTTP_PORT || 3003;//added from PDF steps
-var p2p_port = process.env.P2P_PORT || 6001;
-var p2p_port = process.env.P2P_PORT || 6002;//added from PDF steps
-var p2p_port = process.env.P2P_PORT || 6003;//added from PDF steps
+var http_port = process.env.HTTP_PORT || 3001 || 3002 || 3003;
+// var http_port = process.env.HTTP_PORT || 3002;//added from PDF steps
+// var http_port = process.env.HTTP_PORT || 3003;//added from PDF steps
+var p2p_port = process.env.P2P_PORT || 6001 || 6002 || 6003;
+// var p2p_port = process.env.P2P_PORT || 6002;//added from PDF steps
+// var p2p_port = process.env.P2P_PORT || 6003;//added from PDF steps
 var initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 var difficulty = 4;//adds leading zero's increasing the difficulty
 
